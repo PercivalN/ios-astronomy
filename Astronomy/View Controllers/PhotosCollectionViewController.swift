@@ -23,7 +23,7 @@ class PhotosCollectionViewController: UIViewController, UICollectionViewDataSour
         }
     }
     
-    // UICollectionViewDataSource/Delegate
+    // MARK: UICollectionViewDataSource/Delegate
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -60,12 +60,16 @@ class PhotosCollectionViewController: UIViewController, UICollectionViewDataSour
         return UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 10.0)
     }
     
-    // MARK: - Private
-    
+    // MARK: - Methods
+    // Loads the image into the cell
     private func loadImage(forCell cell: ImageCollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        // let photoReference = photoReferences[indexPath.item]
-        
+//		let photoReference = photoReferences[indexPath.item]
+//		let photoURL = photoReference.imageURL.usingHTTPS
+
+		//guard let url = photoURL else { return }
+
+
         // TODO: Implement image loading here
     }
     
@@ -73,11 +77,13 @@ class PhotosCollectionViewController: UIViewController, UICollectionViewDataSour
     
     private let client = MarsRoverClient()
     
-    private var roverInfo: MarsRover? {
+	// This is just a property observers that is looking for certain things.
+	private var roverInfo: MarsRover? {
         didSet {
             solDescription = roverInfo?.solDescriptions[3]
         }
     }
+	// This is just a property observers that is looking for certain things.
     private var solDescription: SolDescription? {
         didSet {
             if let rover = roverInfo,
@@ -89,6 +95,7 @@ class PhotosCollectionViewController: UIViewController, UICollectionViewDataSour
             }
         }
     }
+	// This is just a property observers that is looking for certain things.
     private var photoReferences = [MarsPhotoReference]() {
         didSet {
             DispatchQueue.main.async { self.collectionView?.reloadData() }
